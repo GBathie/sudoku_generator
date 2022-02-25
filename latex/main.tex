@@ -1,0 +1,31 @@
+\documentclass[12pt]{book}
+
+\usepackage[english]{babel}
+\usepackage[top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+% \usepackage[top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{tikz}
+\usepackage{caption}% Change name and font for caption (or their titles)
+\usepackage{pifont}% for stars
+
+% %%% Rename sudokus
+% \captionsetup{labelfont=bf}
+% \captionsetup{font=large}
+% \captionsetup{figurename=Sudoku}
+\newcounter{sudokucounter}
+
+\title{Your Paper}
+\author{You}
+
+\begin{document}
+\maketitle
+
+\section*{Problems}
+\input{all_sud}
+
+\section*{Solutions}
+\setcounter{sudokucounter}{0}
+\input{all_sol}
+
+\end{document}
