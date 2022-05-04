@@ -207,16 +207,11 @@ void Sudoku::heuristic_small_start()
 
         assert(k != 0);
         unplay(x, y);
-        // debug();
-        // if (count_solutions() != 1)
         if (unique_solution() != 1)
             play(x, y, k);
-        // debug();
-        // cout << endl;
     }
 }
 
-// TODO: change this code to just be a solve, while forbidding the solution that we already know
 // Returns 1 iff there is a unique solution, otherwise anything > 1 or 0
 int Sudoku::unique_solution(int i, int j)
 {
@@ -278,6 +273,7 @@ Sudoku Sudoku::random_sudoku()
     shuffle(nb_perm.begin(), nb_perm.end(), rng);
     Vi row_perm = {0,1,2,3,4,5,6,7,8};
     Vi col_perm = {0,1,2,3,4,5,6,7,8};
+    // Permute columns and rows only within the same 3x3 block
     for (int i = 0; i < BOARD_SIZE; i += 3)
     {
         shuffle(row_perm.begin() + i, row_perm.begin() + i + 3, rng);
@@ -294,5 +290,5 @@ Sudoku Sudoku::random_sudoku()
         for (int j = 0; j < BOARD_SIZE; ++j)
             pos += '0' + g[i][j];
 
-    return Sudoku(pos); // TODO
+    return Sudoku(pos);
 }

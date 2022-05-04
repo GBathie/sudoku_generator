@@ -10,10 +10,10 @@ def write_header(f, sol, h):
 	scale = sol_scale if sol else main_scale
 	f.write(
 f'''%
-\\begin{{figure}}[{'H' if sol else 'htbp'}]
+\\begin{{figure}}[{'H' if sol else 'tbp'}]
 \\centering
 \\stepcounter{{sudokucounter}}
-\\caption*{{\\textbf{{Sudoku \\arabic{{sudokucounter}}}} ({hardness(h)}) }}
+\\caption*{{\\textbf{{Puzzle \\arabic{{sudokucounter}}}} ({hardness(h)}) }}
 \\begin{{tikzpicture}}[scale={scale}, every node/.style={{scale={scale}}}]
     \\draw (0, 0) grid (9, 9);
     \\draw[very thick, scale=3] (0, 0) grid (3, 3);
@@ -79,6 +79,9 @@ def parse_sudoku(i, l, odirname, main_ofile_sud, main_ofile_sol):
 	main_ofile_sud.write(f'\\input{{{sudfname}}}%\n')
 		
 
+first_page_sol = 21
+sol_per_page   = 12
+puzzle_per_page = 2
 def parse_file(fname, odirname):
 	i = 0
 	with open(fname, 'r+') as f:
@@ -87,6 +90,12 @@ def parse_file(fname, odirname):
 				for l in tqdm(f.readlines()):
 					parse_sudoku(str(i), l, odirname, main_ofile_sud, main_ofile_sol)
 					i += 1
+
+					if i % puzzle_per_page == 0:
+						main_ofile_sud.write('\\clearpage%\n')
+					if i == first_page_sol or \
+						(i > first_page_sol and (i - first_page_sol) % sol_per_page == 0):
+						main_ofile_sol.write('\\clearpage%\n')
 
 if __name__ == '__main__':
 	if len(sys.argv) != 3:
