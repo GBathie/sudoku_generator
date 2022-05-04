@@ -2,6 +2,7 @@
 *.sud.tex
 **/all_sud.tex
 **/all_sol.tex
+*.pdf
 
 ### C++ ###
 # Prerequisites

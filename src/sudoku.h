@@ -20,9 +20,23 @@ using Grid = std::array<std::array<T, BOARD_SIZE>, BOARD_SIZE>;
 class Sudoku
 {
 public:
-    Sudoku(string &&s);
+    Sudoku(const std::string &s);
+
+    void debug();
 
     int64_t count_solutions(int i = 0, int j = 0);
+    int unique_solution(int i = 0, int j = 0);
+    void solve();
+
+    std::string find_minimal_start();
+    std::string position() const;
+
+    void heuristic_small_start();
+    // bool unique_solution(); // TODO
+
+    static Sudoku random_sudoku();
+
+    friend std::ostream &operator<<(std::ostream &os, const Sudoku &s);
 private:
     Grid<int> board;
     /* legal[i][j][k] indicates "how many times" k is legal in cell i,j. 
@@ -32,4 +46,12 @@ private:
      * and conversely when removing the number from the cell.
      */
     Grid<Ai> legal; 
+    std::string initial_pos;
+
+    bool solve(int i, int j);
+    void play(int i, int j, int k);
+    void unplay(int i, int j);
+
+    void find_minimal_start(int i, int j, int w, int &best_w, std::string &best);
+
 };

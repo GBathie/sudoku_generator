@@ -8,6 +8,9 @@
 \usepackage{tikz}
 \usepackage{caption}% Change name and font for caption (or their titles)
 \usepackage{pifont}% for stars
+\usepackage{subfig}% solutions side by side
+\usepackage{multicol}
+\usepackage{float}
 
 % %%% Rename sudokus
 % \captionsetup{labelfont=bf}
@@ -21,11 +24,13 @@
 \begin{document}
 \maketitle
 
-\section*{Problems}
+\chapter*{Puzzles}
 \input{all_sud}
 
-\section*{Solutions}
+\chapter*{Solutions}
 \setcounter{sudokucounter}{0}
-\input{all_sol}
+\begin{multicols}{3}
+	\input{all_sol}
+\end{multicols}
 
 \end{document}

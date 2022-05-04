@@ -1,3 +1,5 @@
+import sys
+from tqdm import tqdm
 import numpy as np
 import numpy.random as npr
 
@@ -22,7 +24,17 @@ def generate(it=10):
 
 
 
+DEFAULT_ITS = 10000
 if __name__ == '__main__':
-	s = generate(10000)
-	print(s)
-	print(list(s.flatten()))
+	try:
+		assert len(sys.argv) >= 3
+		n = int(sys.argv[1])
+		fname = sys.argv[2]
+		its = int(sys.argv[3]) if len(sys.argv) > 3 else DEFAULT_ITS
+		with open(fname, "w+") as f:
+			for _ in tqdm(range(n)):
+				s = generate(its)
+				f.write(''.join(str(x) for x in s.flatten()) + '\n')
+	except:
+		print(f'Usage: python3 {sys.argv[0]} <nb_sudokus> <output_file> [nb_iterations]')
+		exit(1)
